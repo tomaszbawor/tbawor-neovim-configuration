@@ -1,14 +1,14 @@
 # My Neovim Configuration
 
-## Plugins 
+## Plugins
 
-| Name | Purpose | 
-|------|---------|
-| Telescope | Finding files through fuzzy search | 
-| Treesitter | Syntax highlighning | 
-| Tokyo Night | Color Theme | 
-| WhichKey | Helpfull reminders for keyboard shortcuts |
-| NvimTree | File Explorer |
-|Bufferline | Buffer indicators with fancy icons|
-|Conform| Code formatting |
-|Mason | Managing lsps and formatters |
+| Name        | Purpose                                   |
+| ----------- | ----------------------------------------- |
+| Telescope   | Finding files through fuzzy search        |
+| Treesitter  | Syntax highlighning                       |
+| Tokyo Night | Color Theme                               |
+| WhichKey    | Helpfull reminders for keyboard shortcuts |
+| NvimTree    | File Explorer                             |
+| Bufferline  | Buffer indicators with fancy icons        |
+| Conform     | Code formatting                           |
+| Mason       | Managing lsps and formatters              |
