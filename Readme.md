@@ -10,3 +10,5 @@
 | WhichKey | Helpfull reminders for keyboard shortcuts |
 | NvimTree | File Explorer |
 |Bufferline | Buffer indicators with fancy icons|
+|Conform| Code formatting |
+|Mason | Managing lsps and formatters |
