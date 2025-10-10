@@ -15,3 +15,10 @@
 | Mason LspConfig | Defaults some configurations for vim.lsp   |
 | Mini Pairs      | Automatic Bracket closing                  |
 | Mini StatusLine | Botom statusline with usefull informations |
+| Blink           | Code completion                            |
+
+## Additinal Information
+
+### Accepting Code Completion
+
+To accept code completion you shoud pick the option and then use the `<C-y>` key binding.
