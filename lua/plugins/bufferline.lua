@@ -6,6 +6,7 @@ return {
     { "<S-l>", ":BufferLineCycleNext<CR>", desc = "Next buffer" },
     { "<S-h>", ":BufferLineCyclePrev<CR>", desc = "Previous buffer" },
   },
+  lazy = false,
   opts = {
     options = {
       offsets = {
