@@ -7,3 +7,4 @@ vim.g.loaded_netrwPlugin = 1
 require("config.lazy")
 require("config.settings")
 require("config.remaps")
+require("config.lsp")
