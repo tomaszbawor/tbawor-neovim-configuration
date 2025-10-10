@@ -6,3 +6,4 @@
 |------|---------|
 | Telescope | Finding files through fuzzy search | 
 | Treesitter | Syntax highlighning | 
+| Tokyo Night | Color Theme | 
