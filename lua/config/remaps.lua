@@ -3,7 +3,7 @@ local wk = require("which-key")
 local non_lsp_mappings = {
   { "<C-d>", "<C-d>zz", desc = "Half page down and center" },
   { "<C-u>", "<C-u>zz", desc = "Half page up and center" },
-  { "<leader>/", "<Plug>(comment_toggle_linewise_current)", desc = "Toggle comment" },
+
   { "<leader>p", '"_dP', desc = "Paste without overwrite" },
   {
     "<leader>s",
@@ -11,6 +11,9 @@ local non_lsp_mappings = {
     desc = "Search and replace word under cursor",
   },
   { "Q", "<nop>", desc = "Disable Ex mode" },
+
+  -- General
+  { "<leader>qq", "<cmd>qa<cr>", desc = "Quit all", mode = "n" },
 
   -- Window Management
   { "<C-h>", "<C-w>h", desc = "Move to the left window" },

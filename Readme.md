@@ -2,23 +2,27 @@
 
 ## Plugins
 
-| Name            | Purpose                                    |
-| --------------- | ------------------------------------------ |
-| Telescope       | Finding files through fuzzy search         |
-| Treesitter      | Syntax highlighning                        |
-| Tokyo Night     | Color Theme                                |
-| WhichKey        | Helpfull reminders for keyboard shortcuts  |
-| NvimTree        | File Explorer                              |
-| Bufferline      | Buffer indicators with fancy icons         |
-| Conform         | Code formatting                            |
-| Mason           | Managing lsps and formatters               |
-| Mason LspConfig | Defaults some configurations for vim.lsp   |
-| Mini Pairs      | Automatic Bracket closing                  |
-| Mini StatusLine | Botom statusline with usefull informations |
-| Blink           | Code completion                            |
+| Name            | Purpose                                                 |
+| --------------- | ------------------------------------------------------- |
+| Blink           | Code completion                                         |
+| Bufferline      | Buffer indicators with fancy icons                      |
+| Conform         | Code formatting                                         |
+| LazyDev         | Better Lua LSP config for the neovim config development |
+| Mason LspConfig | Defaults some configurations for vim.lsp                |
+| Mason           | Managing lsps and formatters                            |
+| Mini Pairs      | Automatic Bracket closing                               |
+| Mini StatusLine | Botom statusline with usefull informations              |
+| NvimTree        | File Explorer                                           |
+| Telescope       | Finding files through fuzzy search                      |
+| ToggleTerm      | Terminal plugin for neovim                              |
+| Tokyo Night     | Color Theme                                             |
+| Treesitter      | Syntax highlighning                                     |
+| WhichKey        | Helpfull reminders for keyboard shortcuts               |
 
 ## Additinal Information
 
-### Accepting Code Completion
+### LSP Usefull shortcuts
 
-To accept code completion you shoud pick the option and then use the `<C-y>` key binding.
+| Keys  | Purpose           |
+| ----- | ----------------- |
+| `C-y` | Accept completion |
