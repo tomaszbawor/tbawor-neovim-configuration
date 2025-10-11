@@ -21,6 +21,10 @@
 
 ## Additinal Information
 
+### Helpfull Commands
+
+`:Telescope keymaps` - keymaps search
+
 ### LSP Usefull shortcuts
 
 | Keys  | Purpose           |

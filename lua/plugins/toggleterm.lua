@@ -9,10 +9,10 @@ return {
     {
       "<C-w>",
       function()
-        vim.api.nvim_input("<C-\\><C-n><C-w><C-w>")
+        vim.api.nvim_input("<C-\\><C-n><cmd>ToggleTerm<cr>")
       end,
       mode = "t",
-      desc = "Window control",
+      desc = "Toggling terminal off",
     },
   },
 }
