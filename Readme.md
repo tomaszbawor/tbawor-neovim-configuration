@@ -8,6 +8,7 @@
 | Bufferline      | Buffer indicators with fancy icons                      |
 | Conform         | Code formatting                                         |
 | LazyDev         | Better Lua LSP config for the neovim config development |
+| Love2D          | LSP Setup for programming with Love2d engine            |
 | Mason LspConfig | Defaults some configurations for vim.lsp                |
 | Mason           | Managing lsps and formatters                            |
 | Mini Pairs      | Automatic Bracket closing                               |
