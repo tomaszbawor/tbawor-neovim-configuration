@@ -23,6 +23,16 @@ local non_lsp_mappings = {
 
   -- Helpers
   { "<leader>xf", "<cmd>source %<cr>", desc = "Source current file" },
+  {
+    "<leader>fp",
+    function()
+      vim.cmd('noau normal! "vy') -- Get selection to the vim v register
+      local selectedText = vim.fn.getreg("v")
+      require("telescope.builtin").live_grep({ default_text = selectedText })
+    end,
+    mode = "v",
+    desc = "Grep selected text in the project",
+  },
 }
 
 wk.add(non_lsp_mappings)
