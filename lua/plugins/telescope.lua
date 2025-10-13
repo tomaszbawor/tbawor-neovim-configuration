@@ -13,6 +13,13 @@ return {
       desc = "Find files",
     },
     {
+      "<leader><leader>",
+      function()
+        require("telescope.builtin").git_files()
+      end,
+      desc = "Find files tracked by git",
+    },
+    {
       "<leader>fg",
       function()
         require("telescope.builtin").live_grep()

@@ -20,6 +20,9 @@ local non_lsp_mappings = {
   { "<C-l>", "<C-w>l", desc = "Move to the right window" },
   { "<C-j>", "<C-w>j", desc = "Move to the down window" },
   { "<C-k>", "<C-w>k", desc = "Move to the top window" },
+
+  -- Helpers
+  { "<leader>xf", "<cmd>source %<cr>", desc = "Source current file" },
 }
 
 wk.add(non_lsp_mappings)
