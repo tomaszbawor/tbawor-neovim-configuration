@@ -8,13 +8,9 @@ return {
   opts = {
     ensure_installed = {
       "lua_ls", -- Lua Language Server
+      "stylua", -- Lua formatter
       "rust_analyzer",
-      "jdtls",
-    },
-    automatic_enable = {
-      "lua_ls",
-      "rust_analyzer",
-      "jdtls",
+      "kotlin_lsp",
     },
   },
 }
