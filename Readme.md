@@ -7,6 +7,7 @@
 | Blink           | Code completion                                             |
 | Bufferline      | Buffer indicators with fancy icons                          |
 | Conform         | Code formatting                                             |
+| Nvim Java       | Preconfigured Java LSP and Debug support                    |
 | LazyDev         | Better Lua LSP config for the neovim config development     |
 | Love2D          | LSP Setup for programming with Love2d engine                |
 | Mason LspConfig | Defaults some configurations for vim.lsp                    |
