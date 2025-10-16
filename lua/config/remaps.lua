@@ -3,6 +3,7 @@ local wk = require("which-key")
 local non_lsp_mappings = {
   { "<C-d>", "<C-d>zz", desc = "Half page down and center" },
   { "<C-u>", "<C-u>zz", desc = "Half page up and center" },
+  { "jj", "<esc>", mode = "i", desc = "Quick escape from instert mode" },
 
   { "<leader>p", '"_dP', desc = "Paste without overwrite" },
   {
