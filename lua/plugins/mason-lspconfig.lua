@@ -11,6 +11,7 @@ return {
       "stylua", -- Lua formatter
       "rust_analyzer",
       "kotlin_lsp",
+      "prettier",
     },
   },
 }
