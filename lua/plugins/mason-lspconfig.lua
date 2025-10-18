@@ -8,6 +8,7 @@ return {
   opts = {
     ensure_installed = {
       "lua_ls", -- Lua Language Server
+      "ts_ls", -- Typescript
       "rust_analyzer",
       "kotlin_lsp",
       "basedpyright",

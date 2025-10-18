@@ -14,7 +14,7 @@ local non_lsp_mappings = {
   { "Q", "<nop>", desc = "Disable Ex mode" },
 
   -- General
-  { "<leader>qq", "<cmd>qa<cr>", desc = "Quit all", mode = "n" },
+  { "<leader>qq", "<cmd>qa!<cr>", desc = "Quit all", mode = "n" },
 
   -- Window Management
   { "<C-h>", "<C-w>h", desc = "Move to the left window" },
