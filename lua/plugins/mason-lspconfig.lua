@@ -10,6 +10,7 @@ return {
       "lua_ls", -- Lua Language Server
       "rust_analyzer",
       "kotlin_lsp",
+      "basedpyright",
     },
   },
 }
