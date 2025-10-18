@@ -8,10 +8,8 @@ return {
   opts = {
     ensure_installed = {
       "lua_ls", -- Lua Language Server
-      "stylua", -- Lua formatter
       "rust_analyzer",
       "kotlin_lsp",
-      "prettier",
     },
   },
 }
