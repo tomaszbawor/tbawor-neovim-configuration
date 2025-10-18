@@ -1,3 +1,8 @@
+-- Global helper function for printing
+P = function(args)
+  print(vim.inspect(args))
+end
+
 vim.g.mapleader = " " -- Set leader key to space before loading plugins
 
 -- disable netrw (neovim default file explorer)
