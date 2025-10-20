@@ -9,7 +9,7 @@ return {
     ensure_installed = {
       "lua_ls", -- Lua Language Server
       "ts_ls", -- Typescript
-      "nil", -- Nix language server
+      "nil_ls", -- Nix language server
       "rust_analyzer",
       "kotlin_lsp",
       "basedpyright",

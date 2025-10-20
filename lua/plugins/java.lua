@@ -1,4 +1,4 @@
 return {
   "nvim-java/nvim-java",
-  -- opts = {}, //
+  -- opts = {}, -- Uncomment that when they will fix error message
 }
