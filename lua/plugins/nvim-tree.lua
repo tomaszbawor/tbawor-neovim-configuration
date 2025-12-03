@@ -7,6 +7,9 @@ return {
       group_empty = true,
       highlight_git = true,
     },
+    filters = {
+      dotfiles = false,
+    },
   },
   keys = {
     { "<leader>e", ":NvimTreeToggle <CR>", desc = "Open file explorer" },
