@@ -1,6 +1,6 @@
 local wk = require("which-key")
 
-local non_lsp_mappings = {
+local key_mappings = {
   { "<C-d>", "<C-d>zz", desc = "Half page down and center" },
   { "<C-u>", "<C-u>zz", desc = "Half page up and center" },
   { "jj", "<esc>", mode = "i", desc = "Quick escape from instert mode" },
@@ -34,6 +34,16 @@ local non_lsp_mappings = {
     mode = "v",
     desc = "Grep selected text in the project",
   },
+
+  -- LSP Hover
+  {
+    "gh",
+    function()
+      vim.lsp.buf.hover()
+    end,
+    mode = "n",
+    desc = "Hover symbol",
+  },
 }
 
-wk.add(non_lsp_mappings)
+wk.add(key_mappings)
