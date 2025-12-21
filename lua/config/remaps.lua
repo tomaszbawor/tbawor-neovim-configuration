@@ -44,6 +44,15 @@ local key_mappings = {
     mode = "n",
     desc = "Hover symbol",
   },
+
+  {
+    "gcd",
+    function()
+      vim.diagnostic.open_float()
+    end,
+    mode = "n",
+    desc = "Show full diagnostics",
+  },
 }
 
 wk.add(key_mappings)
