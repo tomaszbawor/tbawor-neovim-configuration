@@ -5,7 +5,7 @@ return {
     require("nvim-treesitter.configs").setup(opts)
   end,
   opts = {
-    ensure_installed = { "c", "lua", "vim", "javascript", "python", "typescript", "java", "kotlin" },
+    ensure_installed = { "c", "lua", "vim", "javascript", "python", "typescript", "tsx", "java", "kotlin" },
     highlight = { enable = true },
     indent = { enable = true },
   },
