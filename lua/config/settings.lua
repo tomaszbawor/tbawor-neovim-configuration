@@ -13,3 +13,5 @@ vim.opt.smartindent = true
 
 vim.opt.wrap = false
 vim.opt.swapfile = false -- Disable swap files
+
+vim.opt.autoread = true -- auto refresh files when they change
