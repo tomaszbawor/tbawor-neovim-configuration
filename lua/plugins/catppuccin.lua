@@ -3,8 +3,11 @@ return {
   name = "catppuccin",
   lazy = false,
   priority = 1000,
-  opts = {},
-  config = function()
+  opts = {
+    transparent_background = true,
+  },
+  config = function(_, opts)
+    require("catppuccin").setup(opts)
     vim.cmd.colorscheme("catppuccin-frappe")
   end,
 }
