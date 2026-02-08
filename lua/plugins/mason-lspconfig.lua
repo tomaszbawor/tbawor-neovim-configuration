@@ -5,14 +5,19 @@ return {
     "neovim/nvim-lspconfig",
   },
   lazy = false,
-  opts = {
-    ensure_installed = {
-      "lua_ls", -- Lua Language Server
-      "ts_ls", -- Typescript
-      "nil_ls", -- Nix language server
-      "rust_analyzer",
-      "kotlin_lsp",
-      "basedpyright",
-    },
-  },
+  config = function()
+    require("config.lsp").setup()
+    require("mason-lspconfig").setup({
+      ensure_installed = {
+        "clangd",
+        "lua_ls",
+        "nil_ls",
+        "rust_analyzer",
+        "basedpyright",
+        "ts_ls",
+        "kotlin_language_server",
+      },
+      automatic_enable = true,
+    })
+  end,
 }

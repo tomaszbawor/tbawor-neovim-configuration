@@ -12,7 +12,3 @@ vim.g.loaded_netrwPlugin = 1
 require("config.lazy")
 require("config.settings")
 require("config.remaps")
-require("config.lsp")
-
--- Replace UI Select with telescope
-require("telescope").load_extension("ui-select")

@@ -1,5 +1,3 @@
-local wk = require("which-key")
-
 local key_mappings = {
   { "<C-d>", "<C-d>zz", desc = "Half page down and center" },
   { "<C-u>", "<C-u>zz", desc = "Half page up and center" },
@@ -55,4 +53,15 @@ local key_mappings = {
   },
 }
 
-wk.add(key_mappings)
+local ok, wk = pcall(require, "which-key")
+if ok then
+  wk.add(key_mappings)
+else
+  for _, m in ipairs(key_mappings) do
+    local lhs = m[1]
+    local rhs = m[2]
+    local mode = m.mode or "n"
+    local opts = { desc = m.desc }
+    vim.keymap.set(mode, lhs, rhs, opts)
+  end
+end

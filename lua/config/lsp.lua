@@ -1,56 +1,59 @@
--- Configuration  for the LSPs
-vim.o.signcolumn = "yes"
+local M = {}
 
-vim.diagnostic.config({
-  virtual_text = true, -- Inline Diagnostic Texts
-})
+function M.setup()
+  -- LSP configuration (Neovim 0.11+ native API).
+  -- mason-lspconfig (v2+) will call vim.lsp.enable() for installed servers.
 
--- clangd (C/C++)
--- Neovim 0.11+ prefers the built-in API (vim.lsp.config) over require('lspconfig').
--- On Nix/NixOS there is often no /usr/include, so clangd must be allowed to query
--- the actual compiler from compile_commands.json for system include paths.
-local function clangd_cmd()
-  local exe = vim.fn.exepath("clangd")
-  if exe ~= nil and exe ~= "" then
-    return exe
+  vim.o.signcolumn = "yes"
+  vim.diagnostic.config({
+    virtual_text = true,
+  })
+
+  -- Ensure Mason-installed binaries are discoverable.
+  vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. (vim.env.PATH or "")
+
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  do
+    local ok, blink = pcall(require, "blink.cmp")
+    if ok and type(blink.get_lsp_capabilities) == "function" then
+      capabilities = blink.get_lsp_capabilities(capabilities)
+    end
   end
 
-  local mason = vim.fn.stdpath("data") .. "/mason/bin/clangd"
-  if vim.uv.fs_stat(mason) then
-    return mason
-  end
+  -- Apply capabilities to all LSP configs.
+  vim.lsp.config("*", {
+    capabilities = capabilities,
+  })
 
-  return "clangd"
+  -- Buffer-local LSP keymaps.
+  vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("omo_lsp_keymaps", { clear = true }),
+    callback = function(args)
+      local opts = { buffer = args.buf }
+      vim.keymap.set("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", opts, { desc = "Hover" }))
+      vim.keymap.set("n", "gK", vim.lsp.buf.signature_help, vim.tbl_extend("force", opts, { desc = "Signature help" }))
+    end,
+  })
+
+  vim.lsp.config("clangd", {
+    cmd = {
+      "clangd",
+      "--background-index",
+      "--clang-tidy",
+      "--header-insertion=iwyu",
+      "--completion-style=detailed",
+      "--query-driver=/nix/store/*/bin/gcc,/nix/store/*/bin/*-gcc,/nix/store/*/bin/cc,/nix/store/*/bin/clang,/nix/store/*/bin/clang++",
+    },
+    filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
+    root_dir = function(bufnr, on_dir)
+      local root = vim.fs.root(bufnr, { ".clangd", "compile_commands.json", "compile_flags.txt", ".git" })
+      if not root or root == "" then
+        local fname = vim.api.nvim_buf_get_name(bufnr)
+        root = (fname ~= nil and fname ~= "") and vim.fs.dirname(fname) or vim.uv.cwd()
+      end
+      on_dir(root)
+    end,
+  })
 end
 
-local function clangd_root_dir(bufnr)
-  local fname = vim.api.nvim_buf_get_name(bufnr)
-  if fname == nil or fname == "" then
-    return vim.uv.cwd()
-  end
-
-  local dir = vim.fs.dirname(fname)
-  local markers = { ".clangd", "compile_commands.json", "compile_flags.txt", ".git" }
-  local found = vim.fs.find(markers, { path = dir, upward = true })
-
-  if found ~= nil and found[1] ~= nil then
-    return vim.fs.dirname(found[1])
-  end
-
-  return dir
-end
-
-vim.lsp.config("clangd", {
-  cmd = {
-    clangd_cmd(),
-    "--background-index",
-    "--clang-tidy",
-    "--header-insertion=iwyu",
-    "--completion-style=detailed",
-    "--query-driver=/nix/store/*/bin/gcc,/nix/store/*/bin/*-gcc,/nix/store/*/bin/cc,/nix/store/*/bin/clang,/nix/store/*/bin/clang++",
-  },
-  filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
-  root_dir = clangd_root_dir,
-})
-
-vim.lsp.enable("clangd")
+return M

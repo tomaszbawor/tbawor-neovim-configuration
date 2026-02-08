@@ -1,6 +1,6 @@
 return {
   "mason-org/mason.nvim",
-  lazy = true,
+  lazy = false,
   cmd = "Mason",
   opts = {
     ui = {
