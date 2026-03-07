@@ -6,6 +6,7 @@ return {
         lua = { "stylua" },
         markdown = { "prettier" },
         kotlin = { "ktlint" },
+        java = { "google-java-format" },
         javascript = { "biome", "prettier", stop_after_first = true },
         javascriptreact = { "biome", "prettier", stop_after_first = true },
         typescript = { "biome", "prettier", stop_after_first = true },

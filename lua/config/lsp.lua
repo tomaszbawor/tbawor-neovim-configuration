@@ -35,6 +35,14 @@ function M.setup()
     end,
   })
 
+  -- Gleam (ships its own LSP via `gleam lsp`; installed via Nix, not Mason)
+  vim.lsp.config("gleam", {
+    cmd = { "gleam", "lsp" },
+    filetypes = { "gleam" },
+    root_markers = { "gleam.toml", ".git" },
+  })
+  vim.lsp.enable("gleam")
+
   vim.lsp.config("clangd", {
     cmd = {
       "clangd",

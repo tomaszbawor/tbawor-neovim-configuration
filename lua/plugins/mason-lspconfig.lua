@@ -11,13 +11,11 @@ return {
       ensure_installed = {
         "clangd",
         "lua_ls",
-        "nil_ls",
         "rust_analyzer",
         "basedpyright",
         "ts_ls",
         "kotlin_language_server",
       },
-      automatic_enable = true,
     })
   end,
 }
