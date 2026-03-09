@@ -1,9 +1,47 @@
 return {
   "nvim-telescope/telescope.nvim",
   tag = "0.1.8",
-  dependencies = { "nvim-lua/plenary.nvim" },
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "nvim-telescope/telescope-ui-select.nvim",
+  },
   cmd = "Telescope",
-  opts = {},
+  config = function()
+    local telescope = require("telescope")
+    local themes = require("telescope.themes")
+    local actions = require("telescope.actions")
+
+    telescope.setup({
+      defaults = {
+        prompt_prefix = "   ",
+        selection_caret = "  ",
+        entry_prefix = "   ",
+        sorting_strategy = "ascending",
+        layout_config = {
+          horizontal = {
+            prompt_position = "top",
+            preview_width = 0.55,
+          },
+          width = 0.87,
+          height = 0.80,
+        },
+        mappings = {
+          n = {
+            ["q"] = actions.close,
+          },
+        },
+      },
+      extensions = {
+        ["ui-select"] = themes.get_dropdown({
+          previewer = false,
+          initial_mode = "normal",
+        }),
+      },
+    })
+
+    -- Load extensions after setup
+    telescope.load_extension("ui-select")
+  end,
   keys = {
     {
       "<leader>ff",
@@ -46,6 +84,27 @@ return {
         require("telescope.builtin").help_tags()
       end,
       desc = "Help",
+    },
+    {
+      "<leader>fd",
+      function()
+        require("telescope.builtin").diagnostics()
+      end,
+      desc = "Diagnostics",
+    },
+    {
+      "<leader>fs",
+      function()
+        require("telescope.builtin").lsp_document_symbols()
+      end,
+      desc = "Document symbols",
+    },
+    {
+      "<leader>fS",
+      function()
+        require("telescope.builtin").lsp_dynamic_workspace_symbols()
+      end,
+      desc = "Workspace symbols",
     },
   },
 }

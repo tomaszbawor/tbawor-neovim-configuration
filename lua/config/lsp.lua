@@ -1,12 +1,47 @@
 local M = {}
 
+-- Diagnostic signs with icons
+local diagnostic_signs = {
+  { name = "DiagnosticSignError", text = " " },
+  { name = "DiagnosticSignWarn", text = " " },
+  { name = "DiagnosticSignHint", text = "󰌵 " },
+  { name = "DiagnosticSignInfo", text = " " },
+}
+
 function M.setup()
   -- LSP configuration (Neovim 0.11+ native API).
   -- mason-lspconfig (v2+) will call vim.lsp.enable() for installed servers.
 
   vim.o.signcolumn = "yes"
+
+  -- Setup diagnostic signs
+  for _, sign in ipairs(diagnostic_signs) do
+    vim.fn.sign_define(sign.name, {
+      texthl = sign.name,
+      text = sign.text,
+      numhl = sign.name,
+    })
+  end
+
+  -- Enhanced diagnostic configuration
   vim.diagnostic.config({
-    virtual_text = true,
+    virtual_text = {
+      prefix = "●",
+      spacing = 4,
+      source = "if_many",
+    },
+    float = {
+      focusable = true,
+      style = "minimal",
+      border = "rounded",
+      source = true,
+      header = "",
+      prefix = "",
+    },
+    signs = true,
+    underline = true,
+    update_in_insert = false,
+    severity_sort = true,
   })
 
   -- Ensure Mason-installed binaries are discoverable.
@@ -29,9 +64,81 @@ function M.setup()
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("omo_lsp_keymaps", { clear = true }),
     callback = function(args)
-      local opts = { buffer = args.buf }
-      vim.keymap.set("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", opts, { desc = "Hover" }))
-      vim.keymap.set("n", "gK", vim.lsp.buf.signature_help, vim.tbl_extend("force", opts, { desc = "Signature help" }))
+      local bufnr = args.buf
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+      local function map(mode, lhs, rhs, desc)
+        vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
+      end
+
+      -- Navigation (using telescope for fancy UI)
+      map("n", "gd", function()
+        require("telescope.builtin").lsp_definitions({ reuse_win = true })
+      end, "Go to definition")
+
+      map("n", "gD", vim.lsp.buf.declaration, "Go to declaration")
+
+      map("n", "gr", function()
+        require("telescope.builtin").lsp_references({ include_declaration = false })
+      end, "References")
+
+      map("n", "gi", function()
+        require("telescope.builtin").lsp_implementations({ reuse_win = true })
+      end, "Implementations")
+
+      map("n", "gy", function()
+        require("telescope.builtin").lsp_type_definitions({ reuse_win = true })
+      end, "Type definition")
+
+      -- Hover and signature
+      map("n", "K", vim.lsp.buf.hover, "Hover")
+      map("n", "gK", vim.lsp.buf.signature_help, "Signature help")
+      map("i", "<C-k>", vim.lsp.buf.signature_help, "Signature help")
+
+      -- Code actions and refactoring
+      map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Code actions")
+      map("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol")
+
+      -- Diagnostics
+      map("n", "[d", function()
+        vim.diagnostic.jump({ count = -1, float = true })
+      end, "Previous diagnostic")
+
+      map("n", "]d", function()
+        vim.diagnostic.jump({ count = 1, float = true })
+      end, "Next diagnostic")
+
+      map("n", "[e", function()
+        vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR, float = true })
+      end, "Previous error")
+
+      map("n", "]e", function()
+        vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR, float = true })
+      end, "Next error")
+
+      map("n", "gl", vim.diagnostic.open_float, "Show diagnostics")
+
+      -- Document highlight (highlight references under cursor)
+      if client and client.supports_method("textDocument/documentHighlight") then
+        local highlight_group = vim.api.nvim_create_augroup("lsp_document_highlight_" .. bufnr, { clear = true })
+        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+          group = highlight_group,
+          buffer = bufnr,
+          callback = vim.lsp.buf.document_highlight,
+        })
+        vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+          group = highlight_group,
+          buffer = bufnr,
+          callback = vim.lsp.buf.clear_references,
+        })
+      end
+
+      -- Inlay hints toggle (if supported)
+      if client and client.supports_method("textDocument/inlayHint") then
+        map("n", "<leader>uh", function()
+          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
+        end, "Toggle inlay hints")
+      end
     end,
   })
 

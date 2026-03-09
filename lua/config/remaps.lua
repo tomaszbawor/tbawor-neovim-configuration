@@ -32,25 +32,6 @@ local key_mappings = {
     mode = "v",
     desc = "Grep selected text in the project",
   },
-
-  -- LSP Hover
-  {
-    "gh",
-    function()
-      vim.lsp.buf.hover()
-    end,
-    mode = "n",
-    desc = "Hover symbol",
-  },
-
-  {
-    "gcd",
-    function()
-      vim.diagnostic.open_float()
-    end,
-    mode = "n",
-    desc = "Show full diagnostics",
-  },
 }
 
 local ok, wk = pcall(require, "which-key")
