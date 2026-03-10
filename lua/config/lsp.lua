@@ -71,23 +71,33 @@ function M.setup()
         vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
       end
 
+      local function lsp_telescope(method, opts, fallback)
+        local ok, builtin = pcall(require, "telescope.builtin")
+        if ok and type(builtin[method]) == "function" then
+          return builtin[method](opts or {})
+        end
+        if fallback then
+          return fallback()
+        end
+      end
+
       -- Navigation (using telescope for fancy UI)
       map("n", "gd", function()
-        require("telescope.builtin").lsp_definitions({ reuse_win = true })
+        lsp_telescope("lsp_definitions", { reuse_win = true }, vim.lsp.buf.definition)
       end, "Go to definition")
 
       map("n", "gD", vim.lsp.buf.declaration, "Go to declaration")
 
       map("n", "gr", function()
-        require("telescope.builtin").lsp_references({ include_declaration = false })
+        lsp_telescope("lsp_references", { include_declaration = false }, vim.lsp.buf.references)
       end, "References")
 
       map("n", "gi", function()
-        require("telescope.builtin").lsp_implementations({ reuse_win = true })
+        lsp_telescope("lsp_implementations", { reuse_win = true }, vim.lsp.buf.implementation)
       end, "Implementations")
 
       map("n", "gy", function()
-        require("telescope.builtin").lsp_type_definitions({ reuse_win = true })
+        lsp_telescope("lsp_type_definitions", { reuse_win = true }, vim.lsp.buf.type_definition)
       end, "Type definition")
 
       -- Hover and signature

@@ -1,20 +1,19 @@
 return {
   "nvim-telescope/telescope.nvim",
   tag = "0.1.8",
+  lazy = false,
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope-ui-select.nvim",
   },
-  cmd = "Telescope",
   config = function()
     local telescope = require("telescope")
     local themes = require("telescope.themes")
-    local actions = require("telescope.actions")
 
     telescope.setup({
       defaults = {
         prompt_prefix = "   ",
-        selection_caret = "  ",
+        selection_caret = "   ",
         entry_prefix = "   ",
         sorting_strategy = "ascending",
         layout_config = {
@@ -25,16 +24,10 @@ return {
           width = 0.87,
           height = 0.80,
         },
-        mappings = {
-          n = {
-            ["q"] = actions.close,
-          },
-        },
       },
       extensions = {
         ["ui-select"] = themes.get_dropdown({
           previewer = false,
-          initial_mode = "normal",
         }),
       },
     })

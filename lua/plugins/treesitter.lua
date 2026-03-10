@@ -2,7 +2,7 @@ return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
   config = function(_, opts)
-    require("nvim-treesitter.config").setup(opts)
+    require("nvim-treesitter.configs").setup(opts)
   end,
   opts = {
     ensure_installed = { "c", "lua", "vim", "javascript", "python", "typescript", "tsx", "java", "kotlin", "gleam" },
