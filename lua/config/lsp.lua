@@ -2,10 +2,10 @@ local M = {}
 
 -- Diagnostic signs with icons
 local diagnostic_signs = {
-  { name = "DiagnosticSignError", text = " " },
-  { name = "DiagnosticSignWarn", text = " " },
-  { name = "DiagnosticSignHint", text = "󰌵 " },
-  { name = "DiagnosticSignInfo", text = " " },
+  [vim.diagnostic.severity.ERROR] = " ",
+  [vim.diagnostic.severity.WARN] = " ",
+  [vim.diagnostic.severity.HINT] = "󰌵 ",
+  [vim.diagnostic.severity.INFO] = " ",
 }
 
 function M.setup()
@@ -13,15 +13,6 @@ function M.setup()
   -- mason-lspconfig (v2+) will call vim.lsp.enable() for installed servers.
 
   vim.o.signcolumn = "yes"
-
-  -- Setup diagnostic signs
-  for _, sign in ipairs(diagnostic_signs) do
-    vim.fn.sign_define(sign.name, {
-      texthl = sign.name,
-      text = sign.text,
-      numhl = sign.name,
-    })
-  end
 
   -- Enhanced diagnostic configuration
   vim.diagnostic.config({
@@ -38,7 +29,9 @@ function M.setup()
       header = "",
       prefix = "",
     },
-    signs = true,
+    signs = {
+      text = diagnostic_signs,
+    },
     underline = true,
     update_in_insert = false,
     severity_sort = true,
@@ -58,6 +51,7 @@ function M.setup()
   -- Apply capabilities to all LSP configs.
   vim.lsp.config("*", {
     capabilities = capabilities,
+    offset_encoding = "utf-16",
   })
 
   -- Buffer-local LSP keymaps.
