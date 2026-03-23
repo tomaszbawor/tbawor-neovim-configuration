@@ -1,12 +1,19 @@
 return {
 	-- add gruvbox
-	{ "ellisonleao/gruvbox.nvim" },
+	{
+		"ankushbhagats/pastel.nvim",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			require("pastel").setup()
+		end,
+	},
 
 	-- Configure LazyVim to load gruvbox
 	{
 		"LazyVim/LazyVim",
 		opts = {
-			colorscheme = "gruvbox",
+			colorscheme = "pasteldark",
 		},
 	},
 }
